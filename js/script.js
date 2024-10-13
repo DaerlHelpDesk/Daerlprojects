@@ -68,7 +68,9 @@ document.getElementById('myForm').addEventListener('submit', async (e) => {
         pdf.text("http://www.agrinc.gov.za/", 70, 40);
 
         // Invoice information
-        pdf.text("Invoice #: 19", 10, 50);
+       
+      const uniqueInvoiceNumber = Math.floor(Date.now() / 60000);
+	pdf.text(`Invoice #: ${uniqueInvoiceNumber}`, 10, 50);
         pdf.text(`I Date: ${new Date().toLocaleDateString()}`, 10, 55);
         pdf.text(`Payment Date: ${new Date().toLocaleDateString()}`, 10, 60);
 
