@@ -40,7 +40,7 @@ document.getElementById('clearButton').addEventListener('click', () => {
 });
 
 // Handle form submission and generate PDF
-document.getElementById('myForm').addEventListener('submit', async (e) => {
+document.getElementById('index').addEventListener('submit', async (e) => {
     e.preventDefault(); // Prevent the default form submission
 
     const { jsPDF } = window.jspdf; // Initialize jsPDF
@@ -90,7 +90,7 @@ document.getElementById('myForm').addEventListener('submit', async (e) => {
         pdf.save('form-data.pdf');
 
         // Clear the form fields and signature after submission
-        document.getElementById('myForm').reset();
+        document.getElementById('index').reset();
         context.clearRect(0, 0, canvas.width, canvas.height); // Clear signature area
     };
 
