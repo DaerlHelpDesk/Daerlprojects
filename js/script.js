@@ -49,8 +49,8 @@ document.getElementById('myForm').addEventListener('submit', async (e) => {
     const name = document.getElementById('name').value;
     const email = document.getElementById('email').value;
 
-    // Load logo image
-    const logoUrl = "https://raw.githubusercontent.com/edisonneza/jspdf-invoice-template/demo/images/logo.png";
+      // Load logo image
+    const logoUrl ="https://raw.githubusercontent.com/DaerlHelpDesk/Daerlprojects/main/images/coa.png";
     const logoImg = new Image();
     logoImg.src = logoUrl;
 
