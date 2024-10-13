@@ -1,44 +1,47 @@
-// Get references to the HTML elements
 const canvas = document.getElementById('signatureCanvas');
 const context = canvas.getContext('2d');
 let drawing = false;
 
-// Set canvas dimensions
-canvas.width = 300;  // Desired width of the signature canvas
-canvas.height = 150; // Desired height of the signature canvas
+// Adjust canvas size on window resize
+function resizeCanvas() {
+    canvas.width = window.innerWidth < 300 ? 300 : window.innerWidth; // Adjust width if too small
+    canvas.height = 150; // Fixed height
+}
+resizeCanvas();
+window.addEventListener('resize', resizeCanvas);
 
-// Start drawing on the canvas
-canvas.addEventListener('mousedown', (e) => {
+// Touch support
+canvas.addEventListener('touchstart', startDrawing);
+canvas.addEventListener('touchmove', draw);
+canvas.addEventListener('touchend', stopDrawing);
+canvas.addEventListener('touchmove', (e) => e.preventDefault()); // Prevent scrolling
+
+// Mouse support
+canvas.addEventListener('mousedown', startDrawing);
+canvas.addEventListener('mousemove', draw);
+canvas.addEventListener('mouseup', stopDrawing);
+canvas.addEventListener('mouseout', stopDrawing);
+
+function startDrawing(e) {
     drawing = true;
     context.beginPath();
-    context.moveTo(e.offsetX, e.offsetY);
-});
+    const { offsetX, offsetY } = e.touches ? e.touches[0] : e;
+    context.moveTo(offsetX, offsetY);
+}
 
-// Draw on the canvas as the mouse moves
-canvas.addEventListener('mousemove', (e) => {
+function draw(e) {
     if (drawing) {
-        context.lineTo(e.offsetX, e.offsetY);
+        const { offsetX, offsetY } = e.touches ? e.touches[0] : e;
+        context.lineTo(offsetX, offsetY);
         context.stroke();
     }
-});
+}
 
-// Stop drawing when the mouse is released
-canvas.addEventListener('mouseup', () => {
+function stopDrawing() {
     drawing = false;
     context.closePath();
-});
-
-// Stop drawing when the mouse leaves the canvas
-canvas.addEventListener('mouseout', () => {
-    drawing = false;
-    context.closePath();
-});
-
-// Clear the canvas when the clear button is clicked
-document.getElementById('clearButton').addEventListener('click', () => {
-    context.clearRect(0, 0, canvas.width, canvas.height);
-});
-
+}
+;
 // Handle form submission and generate PDF
 document.getElementById('myForm').addEventListener('submit', async (e) => {
     e.preventDefault(); // Prevent the default form submission
