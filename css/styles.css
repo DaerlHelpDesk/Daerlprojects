@@ -13,7 +13,7 @@ body::before {
     left: 0;
     right: 0;
     bottom: 0;
-    background-image: url('grass.png'), url('wood.png'); /* Local paths */
+    background-image: url('../images/grass.png'), url('../images/wood.png'); /* Local paths */
     background-size: cover, auto; /* Cover background */
     background-repeat: no-repeat, repeat; /* Repeat the wood texture */
     opacity: 0.2; /* Make it subtle */
