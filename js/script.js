@@ -70,7 +70,7 @@ document.getElementById('myForm').addEventListener('submit', async (e) => {
       const uniqueInvoiceNumber = Math.floor(Date.now() / 60000);
 pdf.text(`Invoice #: ${uniqueInvoiceNumber}`, 10, 50);
         pdf.text(`Intake Date: ${new Date().toLocaleDateString()}`, 10, 55);
-        pdf.text(`Payment Date: ${new Date().toLocaleDateString()}`, 10, 60);
+        //pdf.text(`Payment Date: ${new Date().toLocaleDateString()}`, 10, 60);
 
         // Add form data to PDF
         pdf.setFontSize(18);
