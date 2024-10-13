@@ -1,47 +1,44 @@
+// Get references to the HTML elements
 const canvas = document.getElementById('signatureCanvas');
 const context = canvas.getContext('2d');
 let drawing = false;
 
-// Adjust canvas size on window resize
-function resizeCanvas() {
-    canvas.width = window.innerWidth < 300 ? 300 : window.innerWidth; // Adjust width if too small
-    canvas.height = 150; // Fixed height
-}
-resizeCanvas();
-window.addEventListener('resize', resizeCanvas);
+// Set canvas dimensions
+canvas.width = 300;  // Desired width of the signature canvas
+canvas.height = 150; // Desired height of the signature canvas
 
-// Touch support
-canvas.addEventListener('touchstart', startDrawing);
-canvas.addEventListener('touchmove', draw);
-canvas.addEventListener('touchend', stopDrawing);
-canvas.addEventListener('touchmove', (e) => e.preventDefault()); // Prevent scrolling
-
-// Mouse support
-canvas.addEventListener('mousedown', startDrawing);
-canvas.addEventListener('mousemove', draw);
-canvas.addEventListener('mouseup', stopDrawing);
-canvas.addEventListener('mouseout', stopDrawing);
-
-function startDrawing(e) {
+// Start drawing on the canvas
+canvas.addEventListener('mousedown', (e) => {
     drawing = true;
     context.beginPath();
-    const { offsetX, offsetY } = e.touches ? e.touches[0] : e;
-    context.moveTo(offsetX, offsetY);
-}
+    context.moveTo(e.offsetX, e.offsetY);
+});
 
-function draw(e) {
+// Draw on the canvas as the mouse moves
+canvas.addEventListener('mousemove', (e) => {
     if (drawing) {
-        const { offsetX, offsetY } = e.touches ? e.touches[0] : e;
-        context.lineTo(offsetX, offsetY);
+        context.lineTo(e.offsetX, e.offsetY);
         context.stroke();
     }
-}
+});
 
-function stopDrawing() {
+// Stop drawing when the mouse is released
+canvas.addEventListener('mouseup', () => {
     drawing = false;
     context.closePath();
-}
-;
+});
+
+// Stop drawing when the mouse leaves the canvas
+canvas.addEventListener('mouseout', () => {
+    drawing = false;
+    context.closePath();
+});
+
+// Clear the canvas when the clear button is clicked
+document.getElementById('clearButton').addEventListener('click', () => {
+    context.clearRect(0, 0, canvas.width, canvas.height);
+});
+
 // Handle form submission and generate PDF
 document.getElementById('myForm').addEventListener('submit', async (e) => {
     e.preventDefault(); // Prevent the default form submission
@@ -52,7 +49,7 @@ document.getElementById('myForm').addEventListener('submit', async (e) => {
     const name = document.getElementById('name').value;
     const email = document.getElementById('email').value;
 
-      // Load logo image
+    // Load logo image
     const logoUrl ="https://raw.githubusercontent.com/DaerlHelpDesk/Daerlprojects/main/images/coa.png";
     const logoImg = new Image();
     logoImg.src = logoUrl;
@@ -70,11 +67,9 @@ document.getElementById('myForm').addEventListener('submit', async (e) => {
         pdf.text("email@example.com", 70, 35);
         pdf.text("http://www.agrinc.gov.za/", 70, 40);
 
-        // Invoice information
-       
       const uniqueInvoiceNumber = Math.floor(Date.now() / 60000);
-	pdf.text(`Invoice #: ${uniqueInvoiceNumber}`, 10, 50);
-        pdf.text(`I Date: ${new Date().toLocaleDateString()}`, 10, 55);
+pdf.text(`Invoice #: ${uniqueInvoiceNumber}`, 10, 50);
+        pdf.text(`Intake Date: ${new Date().toLocaleDateString()}`, 10, 55);
         pdf.text(`Payment Date: ${new Date().toLocaleDateString()}`, 10, 60);
 
         // Add form data to PDF
