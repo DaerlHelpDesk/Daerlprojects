@@ -3,31 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daerl intake form</title>
+    <title>Daerl Intake Form</title>
     <link rel="stylesheet" href="css/styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet"> <!-- Add Google Fonts -->
- <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
- </head>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
 <body>
+    <video autoplay muted loop id="backgroundVideo">
+        <source src="https://cdn.pixabay.com/video/2022/04/02/112722-695433093_tiny.mp4" type="video/mp4">
+        Your browser does not support HTML5 video.
+    </video>
 
-<div class="form-container">
-    <img src="images/coa.png" alt="Animal Logo" class="logo"> <!-- Logo Image -->
-    <h2>IT Asset inTake</h2>
-    <form id="myForm">
-        <label for="name">Name:</label>
-        <input type="text" id="name" name="name" required>
+    <div class="form-container">
+        <img src="images/coa.png" alt="Animal Logo" class="logo"> <!-- Logo Image -->
+        <h2>IT Asset Intake</h2>
+        <form id="myForm">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required pattern="[A-Za-z\s]+" title="Please enter only letters and spaces">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+            <label for="signature">Signature:</label>
+            <canvas id="signatureCanvas" style="border: 1px solid #4a763e; width: 100%; height: 150px;"></canvas>
+            <button type="button" id="clearButton">Clear Signature</button>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
 
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required>
-
-        <label for="signature">Signature:</label>
-        <canvas id="signatureCanvas"></canvas>
-
-        <button type="button" id="clearButton">Clear Signature</button>
-        <button type="submit">Submit</button>
-    </form>
-</div>
-
-<script src="js/script.js"></script> <!-- Include your JavaScript file -->
+    <script src="js/script.js"></script>
+    <script type="text/javascript" src="https://cdn.emailjs.com/dist/email.min.js"></script>
 </body>
 </html>

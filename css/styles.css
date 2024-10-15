@@ -1,34 +1,32 @@
 body {
     font-family: 'Arial', sans-serif;
-    background-color: #e0f7fa; /* Light sky blue for a clear day */
-    color: #333; /* Darker text for readability */
+    background-color: transparent; /* Keep body background transparent */
+    color: #333;
     padding: 20px;
-    position: relative;
+    margin: 0; /* Remove default margin */
+    overflow: hidden; /* Prevent scrollbars */
+    position: relative; /* Needed for video positioning */
 }
 
-body::before {
-    content: '';
-    position: absolute;
+#backgroundVideo {
+    position: fixed; /* Fix the video to the viewport */
     top: 0;
     left: 0;
-    right: 0;
-    bottom: 0;
-    background-image: url('../images/grass.png'), url('../images/wood.png'); /* Local paths */
-    background-size: cover, auto; /* Cover background */
-    background-repeat: no-repeat, repeat; /* Repeat the wood texture */
-    opacity: 0.2; /* Make it subtle */
-    z-index: 0; /* Place behind content */
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1; /* Place video behind the content */
 }
 
 .form-container {
     max-width: 400px;
     margin: auto;
-    background: rgba(255, 255, 255, 0.9); /* Semi-transparent white */
+    background: rgba(255, 255, 255, 0.9);
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
-    position: relative;
-    z-index: 1;
+    position: relative; /* Ensure it sits above the video */
+    z-index: 1; /* Bring it above the video */
 }
 
 .logo {
@@ -55,6 +53,12 @@ input {
     margin-bottom: 15px;
     border: 1px solid #ccc;
     border-radius: 5px;
+    transition: background-color 0.3s; /* Smooth transition */
+}
+
+input:hover {
+    background-color: #d1f2eb; /* Change this to your desired hover color */
+    border-color: #4a763e; /* Optional: change border color on hover */
 }
 
 canvas {
