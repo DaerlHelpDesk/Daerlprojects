@@ -84,7 +84,7 @@ function isCanvasEmpty() {
 async function isEmailVerified(email) {
     // Check if the email ends with Gmail or Outlook domains
     return new Promise((resolve) => {
-        const verifiedDomains = ['gmail.com', 'outlook.com', 'hotmail.com'];
+        const verifiedDomains = ['daerl.com', 'ncpg.co.za'];
         const emailDomain = email.split('@')[1];
 
         // Simulating a network delay
@@ -107,7 +107,7 @@ document.getElementById('myForm').addEventListener('submit', async (e) => {
     // Check if the email is verified
     const verified = await isEmailVerified(email);
     if (!verified) {
-        alert('Please verify your email (Gmail or Outlook) before submitting the form.');
+        alert('Please verify your email (DAERL or NCPG) before submitting the form.');
         return; // Stop the submission
     }
 
